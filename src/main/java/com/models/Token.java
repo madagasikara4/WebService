@@ -28,7 +28,7 @@ public class Token {
         this.iduser = iduser;
         this.datecreation = Token.getDateNow();
         this.token = Token.createToken(""+iduser,this.datecreation.toString());
-        this.duree = 600;
+        this.duree = 1200;
     }
 
     public Token(){}
