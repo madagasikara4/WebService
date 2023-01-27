@@ -6,45 +6,65 @@ import javax.persistence.*;
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "idutilisateur")
     private int iduser;
+    @Column(name = "nomuser")
+    private String nomuser;
+    @Column(name = "mdp")
+    private String mdp;
+    @Column(name = "numerocompte")
+    private String numerocompte;
+    @Column(name="montant")
+    private int montant;
 
-    @Column
-    private String identifiant;
-
-    @Column(name = "pwd")
-    private String password;
-
-
-    public Utilisateur(){}
-
-    public Utilisateur(int idUser, String identifiant, String password){
-        this.iduser=idUser;
-        this.identifiant=identifiant;
-        this.password=password;
+    public Utilisateur(int iduser, String nomuser, String mdp, String numerocompte, int montant) {
+        this.iduser = iduser;
+        this.nomuser = nomuser;
+        this.mdp = mdp;
+        this.numerocompte = numerocompte;
+        this.montant = montant;
     }
 
-    public int getIdUser() {
+    public Utilisateur() {
+    }
+
+    public int getIduser() {
         return iduser;
     }
 
-    public String getIdentifiant() {
-        return identifiant;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
-    }
-
-    public void setIdUser(int iduser) {
+    public void setIduser(int iduser) {
         this.iduser = iduser;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getNomuser() {
+        return nomuser;
     }
 
+    public void setNomuser(String nomuser) {
+        this.nomuser = nomuser;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public String getNumerocompte() {
+        return numerocompte;
+    }
+
+    public void setNumerocompte(String numerocompte) {
+        this.numerocompte = numerocompte;
+    }
+
+    public int getMontant() {
+        return montant;
+    }
+
+    public void setMontant(int montant) {
+        this.montant = montant;
+    }
 }

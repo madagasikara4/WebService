@@ -2,6 +2,9 @@ package com.controller;
 
 import com.models.Data;
 import com.models.Error;
+import com.models.Rechargement;
+import com.service.RechargementService;
+import com.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.service.UserService;
@@ -16,6 +19,10 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    TokenService tokenService;
+    @Autowired
+    RechargementService rechargeService;
 
     @GetMapping("/{userid}")
     private Object getUser(@PathVariable("userid") int userid)
@@ -29,10 +36,15 @@ public class UserController {
         return userService.login(user);
     }
 
+    @PostMapping("/recharge")
+    private void recharge(@RequestBody Rechargement user){
+        rechargeService.rechargement(user);
+    }
+
     @PostMapping()
     private int inscription(@RequestBody Utilisateur user){
         userService.saveOrUpdate(user);
-        return user.getIdUser();
+        return user.getIduser();
     }
 
     @GetMapping()
@@ -40,14 +52,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{userid}/{token}")
-    private Object isValide(@PathVariable("userid") int userid,@PathVariable("token") String token){
-        return userService.isValide(userid,token);
+    @GetMapping("/{token}/validation")
+    private Object isValide(@PathVariable("token") String token){
+        return userService.isValide(token);
     }
 
-    @DeleteMapping("/{userid}/{token}")
-    private void deconnexion(@PathVariable("userid") int userid,@PathVariable("token") String token){
-        userService.deconnexion(userid,token);
+    @DeleteMapping("/{token}/deconnexion")
+    private void deconnexion(@PathVariable("token") String token){
+        tokenService.deconnexion(token);
     }
 
 }

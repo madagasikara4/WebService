@@ -3,7 +3,7 @@ package com.service;
 import com.models.Data;
 import com.models.Error;
 import com.models.Token;
-import com.repository.TokenRipository;
+import com.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +13,30 @@ import java.util.List;
 @Service
 public class TokenService {
     @Autowired
-    TokenRipository repository;
+    TokenRepository repository;
 
-    @Autowired
-    ExpirationService expirationService;
 
-    public Object getTokenById(int id)
+    public Object getTokenById(String id)
     {
         try {
-            return new Data(this.repository.findById(id).get());
+            List<Token> user = new ArrayList<Token>();
+            repository.findAll().forEach(user1 -> user.add(user1));
+            for (int i = 0; i < user.size(); i++) {
+                if(user.get(i).getToken().compareTo(id)==0)
+                    return new Data(user.get(i));
+            }
+            return new Data(null);
         }
         catch (Exception e){
             return new Error(e);
         }
+    }
+
+    public void deconnexion(String token){
+        Data dt = (Data)this.getTokenById(token);
+        Token tkn= (Token) dt.getData();
+        tkn.setDateexpiration(Token.getDateNow());
+        repository.save(tkn);
     }
 
     public Object getAllToken(){
@@ -42,6 +53,5 @@ public class TokenService {
     public void saveToken(Token token)
     {
         repository.save(token);
-        expirationService.saveExpiration(token);
     }
 }

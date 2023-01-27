@@ -2,13 +2,13 @@ package com.service;
 
 import com.models.Data;
 import com.models.Error;
-import com.models.Expiration;
 import com.models.Token;
 import com.models.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.repository.UserRepository;
 
+import javax.rmi.CORBA.Util;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -20,8 +20,6 @@ public class UserService {
     @Autowired
     TokenService token;
 
-    @Autowired
-    ExpirationService expiration;
 
     public Object getUsersById(int id)
     {
@@ -30,6 +28,22 @@ public class UserService {
         }
         catch (Exception e){
             return new Error(e);
+        }
+    }
+
+    public Utilisateur getUsersByCompte(String compte)throws Exception
+    {
+        try {
+            List<Utilisateur> user = new ArrayList<Utilisateur>();
+            repository.findAll().forEach(user1 -> user.add(user1));
+            for (int i = 0; i < user.size(); i++) {
+                if(user.get(i).getNumerocompte().compareTo(compte)==0)
+                    return user.get(i);
+            }
+            return null;
+        }
+        catch (Exception e){
+            throw e;
         }
     }
 
@@ -44,11 +58,11 @@ public class UserService {
         }
     }
 
-    public Object isValide(int idUser,String token){
+    public Object isValide(String token){
         try {
-            Data d=(Data) expiration.getExpirationById(token);
-            Expiration exp =(Expiration) d.getData();
-            if (exp.getDateexpiration().after(Token.getDateNow()))
+            Data dt = (Data)this.token.getTokenById(token);
+            Token tkn= (Token) dt.getData();
+            if (tkn.getDateexpiration().after(Token.getDateNow()))
                 return new Data(true);
             return new Data(false);
         }
@@ -57,10 +71,6 @@ public class UserService {
         }
     }
 
-    public void deconnexion(int idUser,String token){
-        Expiration exp=new Expiration(token,Token.getDateNow());
-        expiration.update(exp);
-    }
 
     public void saveOrUpdate(Utilisateur users)
     {
@@ -84,12 +94,12 @@ public class UserService {
         List<Utilisateur> users=(List<Utilisateur>) liste;
         for (int i = 0; i < users.size(); i++) {
             int log=0;
-            if(users.get(i).getIdentifiant().compareTo(user.getIdentifiant())==0)
+            if(users.get(i).getNomuser().compareTo(user.getNomuser())==0)
                 log++;
-            if(users.get(i).getPassword().compareTo(user.getPassword())==0)
+            if(users.get(i).getMdp().compareTo(user.getMdp())==0)
                 log++;
             if(log==2) {
-                Token tkn=new Token(users.get(i).getIdUser());
+                Token tkn=new Token(users.get(i).getIduser());
                 token.saveToken(tkn);
                 return new Data(tkn);
             }

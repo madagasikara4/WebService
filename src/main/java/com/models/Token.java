@@ -1,8 +1,5 @@
 package com.models;
 
-import com.service.ExpirationService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -22,13 +19,38 @@ public class Token {
     private Date datecreation;
     @Column
     private double duree;
+    @Column
+    private Date dateexpiration;
 
+    public Token(int iduser, String token, Date datecreation, double duree, Date datexpiration) {
+        this.iduser = iduser;
+        this.token = token;
+        this.datecreation = datecreation;
+        this.duree = duree;
+        this.dateexpiration = datexpiration;
+    }
 
     public Token(int iduser) {
         this.iduser = iduser;
         this.datecreation = Token.getDateNow();
         this.token = Token.createToken(""+iduser,this.datecreation.toString());
-        this.duree = 1200;
+        this.duree = 300;
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(datecreation);
+        Double d=new Double(duree);
+        cal.add(Calendar.SECOND,d.intValue());
+        this.dateexpiration= cal.getTime();
+    }
+
+    @Override
+    public String toString() {
+        return "Token{" +
+                "iduser=" + iduser +
+                ", token='" + token + '\'' +
+                ", datecreation=" + datecreation +
+                ", duree=" + duree +
+                ", datexpiration=" + dateexpiration +
+                '}';
     }
 
     public Token(){}
@@ -70,7 +92,15 @@ public class Token {
         return cal.getTime();
     }
 
-    public static String createToken(String input,String date)
+    public Date getDateexpiration() {
+        return dateexpiration;
+    }
+
+    public void setDateexpiration(Date datexpiration) {
+        this.dateexpiration = datexpiration;
+    }
+
+    public static String createToken(String input, String date)
     {
         try {
             input+=date;
