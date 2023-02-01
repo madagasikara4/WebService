@@ -9,6 +9,7 @@ public class ProduitPhoto {
     private String nomproduit;
     private int idutilisateur;
     private int idcategorie;
+    private String nomcategorie;
     private String descri;
     private int prixenchere;
     private int prixmin;
@@ -31,7 +32,7 @@ public class ProduitPhoto {
         this.image = image;
     }
 
-    public ProduitPhoto(Produit produit,Photo photo){
+    public ProduitPhoto(VProduit produit,Photo photo){
         this.idproduit = produit.getIdproduit();
         this.nomproduit = produit.getNomproduit();
         this.idutilisateur = produit.getIdutilisateur();
@@ -43,9 +44,18 @@ public class ProduitPhoto {
         this.debut = produit.getDebut();
         this.statut = produit.getStatut();
         this.image = photo.getImage();
+        this.nomcategorie=produit.getNomcategorie();
     }
 
     public ProduitPhoto() {
+    }
+
+    public String getNomcategorie() {
+        return nomcategorie;
+    }
+
+    public void setNomcategorie(String nomcategorie) {
+        this.nomcategorie = nomcategorie;
     }
 
     public Produit toProduit(){

@@ -137,7 +137,7 @@ public class RechercheService {
             List<VProduit> vproduit = new ArrayList<VProduit>();
             vproduitRepository.findAll().forEach(produit1 -> vproduit.add(produit1));
             for (int i = 0; i < vproduit.size(); i++) {
-                if(vproduit.get(i).getIdUtilisateur()==id)
+                if(vproduit.get(i).getIdutilisateur()==id)
                     continue;
                 vproduit.remove(i);
                 i--;

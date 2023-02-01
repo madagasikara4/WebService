@@ -63,12 +63,12 @@ public class VProduit {
         this.nomproduit = nomproduit;
     }
 
-    public int getIdUtilisateur() {
+    public int getIdutilisateur() {
         return idutilisateur;
     }
 
-    public void setIdUtilisateur(int idUtilisateur) {
-        this.idutilisateur = idUtilisateur;
+    public void setIdutilisateur(int idutilisateur) {
+        this.idutilisateur = idutilisateur;
     }
 
     public int getIdcategorie() {
