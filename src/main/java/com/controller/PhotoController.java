@@ -19,7 +19,7 @@ public class PhotoController {
     }
 
     @PostMapping()
-    private void addPhoto(@RequestBody Photo photo){
+    public void addPhoto(@RequestBody Photo photo){
         photoService.save(photo);
     }
 

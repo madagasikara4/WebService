@@ -1,10 +1,14 @@
 package com.controller;
 
 import com.models.Produit;
+import com.models.ProduitPhoto;
+import com.service.ProduitPhotoService;
 import com.service.ProduitService;
 import com.service.VProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Calendar;
 
 @RestController
 @CrossOrigin
@@ -17,9 +21,17 @@ public class ProduitController {
     @Autowired
     VProduitService vProduitService;
 
+    @Autowired
+    ProduitPhotoService produitPhotoService;
+
     @GetMapping()
     private Object getAllVProduit() {
         return vProduitService.getAllVProduit();
+    }
+
+    @GetMapping("/photo")
+    private Object getAllVProduitPhoto() {
+        return produitPhotoService.getAllProduitPhoto();
     }
 
     @GetMapping("/{produitid}")
@@ -35,9 +47,18 @@ public class ProduitController {
     }
 
     @PostMapping()
-    private int saveProduit(@RequestBody Produit produit){
+    public int saveProduit(@RequestBody Produit produit){
+        if(produit.getDebut()==null){
+            Calendar cl=Calendar.getInstance();
+            produit.setDebut(cl.getTime());
+        }
         produitService.saveOrUpdate(produit);
         return produit.getIdproduit();
+    }
+
+    @PostMapping("/photo")
+    public Object addProduitPhoto(ProduitPhoto pp){
+        return produitPhotoService.ajoutProduitPhoto(pp);
     }
 
     @DeleteMapping("/{produitid}")

@@ -1,8 +1,6 @@
 package com.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "benefice")
@@ -10,6 +8,7 @@ public class Benefice {
 
         @Id
         @Column(name = "idbenefice")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int idbenefice;
 
         @Column(name = "idproduit")

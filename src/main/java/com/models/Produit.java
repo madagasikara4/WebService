@@ -47,14 +47,6 @@ public class Produit {
     public Produit() {
     }
 
-    public int getIdUtilisateur() {
-        return idutilisateur;
-    }
-
-    public void setIdUtilisateur(int idUtilisateur) {
-        this.idutilisateur = idUtilisateur;
-    }
-
     public int getIdproduit() {
         return idproduit;
     }
@@ -128,5 +120,11 @@ public class Produit {
     }
 
 
+    public int getIdutilisateur() {
+        return idutilisateur;
+    }
 
+    public void setIdutilisateur(int idutilisateur) {
+        this.idutilisateur = idutilisateur;
+    }
 }

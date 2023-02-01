@@ -113,7 +113,7 @@ public class ProduitService {
                     Utilisateur user=userRepository.findById(bloq.getIdutilisateur()).get();
                     user.setMontant(user.getMontant()-prix.intValue());
                     userRepository.save(user);
-                    Utilisateur u=userRepository.findById(produit.get(i).getIdUtilisateur()).get();
+                    Utilisateur u=userRepository.findById(produit.get(i).getIdutilisateur()).get();
                     Commission com=commissionRepository.findById(1).get();
                     float b=prix*com.getCommission()/100;
                     prix=prix-(prix*com.getCommission()/100);

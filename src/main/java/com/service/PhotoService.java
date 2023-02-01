@@ -20,6 +20,10 @@ public class PhotoService {
             return new Error(e);
         }
     }
+    public Photo getPhotoByid(int idProduit)throws Exception{
+        Photo obj=photoRepository.findPhotoByIdproduit(idProduit);
+        return obj;
+    }
 
     public void save(Photo p){
         photoRepository.save(p);

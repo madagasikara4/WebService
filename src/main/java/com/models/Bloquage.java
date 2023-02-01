@@ -1,14 +1,13 @@
 package com.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "bloquage")
 public class Bloquage {
     @Id
     @Column(name = "idbloquage")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idbloquage;
     @Column(name = "idproduit")
     private int idproduit;

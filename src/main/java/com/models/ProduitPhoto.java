@@ -6,23 +6,14 @@ import java.util.Date;
 public class ProduitPhoto {
 
     private int idproduit;
-
     private String nomproduit;
-
     private int idutilisateur;
-
     private int idcategorie;
-
     private String descri;
-
     private int prixenchere;
-
     private int prixmin;
-
     private int duree;
-
     private Date debut;
-
     private int statut;
     private String[] image;
 
@@ -40,6 +31,20 @@ public class ProduitPhoto {
         this.image = image;
     }
 
+    public ProduitPhoto(Produit produit,Photo photo){
+        this.idproduit = produit.getIdproduit();
+        this.nomproduit = produit.getNomproduit();
+        this.idutilisateur = produit.getIdutilisateur();
+        this.idcategorie = produit.getIdcategorie();
+        this.descri = produit.getDescri();
+        this.prixenchere = produit.getPrixenchere();
+        this.prixmin = produit.getPrixmin();
+        this.duree = produit.getDuree();
+        this.debut = produit.getDebut();
+        this.statut = produit.getStatut();
+        this.image = photo.getImage();
+    }
+
     public ProduitPhoto() {
     }
 
@@ -53,7 +58,7 @@ public class ProduitPhoto {
         pro.setIdcategorie(this.idcategorie);
         pro.setPrixenchere(this.prixenchere);
         pro.setPrixmin(this.prixmin);
-        pro.setIdUtilisateur(this.idutilisateur);
+        pro.setIdutilisateur(this.idutilisateur);
         return pro;
     }
 
