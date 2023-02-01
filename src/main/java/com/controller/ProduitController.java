@@ -40,6 +40,11 @@ public class ProduitController {
         return vProduitService.getVProduitById(produitid);
     }
 
+    @GetMapping("/users/{iduser}")
+    private Object getVProduitByIdUser(@PathVariable("iduser") int iduser){
+        return vProduitService.getAllVProduitByIdutilisateur(iduser);
+    }
+
     @GetMapping("/bycategorie/{categorieid}")
     private Object getValideProduitByCategorie(@PathVariable("categorieid") int categorieid)
     {

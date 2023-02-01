@@ -28,6 +28,17 @@ public class VProduitService {
         }
     }
 
+    public Object getAllVProduitByIdutilisateur(int iduser){
+        try{
+            List<VProduit> vproduit = new ArrayList<VProduit>();
+            vproduitRepository.getVProduitByIdutilisateur(iduser).forEach(produit1 -> vproduit.add(produit1));
+            return new Data(vproduit);
+        }
+        catch (Exception e){
+            return new Error(e);
+        }
+    }
+
     public Object getValideByCategorie(int idcategorie){
         try{
             List<VProduit> produit = new ArrayList<VProduit>();
