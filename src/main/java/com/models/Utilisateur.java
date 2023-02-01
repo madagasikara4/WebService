@@ -12,8 +12,7 @@ public class Utilisateur {
     private String nomuser;
     @Column(name = "mdp")
     private String mdp;
-    @Column(name = "numerocompte")
-    @Transient
+    @Column(name = "numerocompte",insertable = false)
     private String numerocompte;
     @Column(name="montant")
     private int montant;
