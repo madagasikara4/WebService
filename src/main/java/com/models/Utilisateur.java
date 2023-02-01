@@ -13,6 +13,7 @@ public class Utilisateur {
     @Column(name = "mdp")
     private String mdp;
     @Column(name = "numerocompte")
+    @Transient
     private String numerocompte;
     @Column(name="montant")
     private int montant;
