@@ -63,7 +63,7 @@ public class RechercheService {
             if(rech.getDate()!=null)
                 this.getVProduitByDate(rech.getDate(),produit);
             this.getVProduitByStatut(rech.getStatut(),produit);
-            if(rech.getKeyWord()!=null)
+            if(rech.getKeyWord().compareTo("")!=0)
                 this.getVProduitByMotCle(rech.getKeyWord(),produit);
             return new Data(produit);
         }
