@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface VProduitRepository  extends CrudRepository<VProduit, Integer> {
     List<VProduit> getVProduitByIdutilisateur(int idutilisateur);
+    List<VProduit> getVProduitByStatut(int statut);
 }

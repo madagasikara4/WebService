@@ -57,6 +57,21 @@ public class ProduitPhotoService {
         }
     }
 
+    public Object getAllProduitPhotoByStatut(int statut){
+        try{
+            List<VProduit> produit = new ArrayList<VProduit>();
+            vProduitRepository.getVProduitByStatut(statut).forEach(produit1 -> produit.add(produit1));
+            List<ProduitPhoto> val=new ArrayList<ProduitPhoto>();
+            for (int i = 0; i < produit.size(); i++) {
+                val.add(new ProduitPhoto(produit.get(i), photoService.getPhotoByid(produit.get(i).getIdproduit())));
+            }
+            return new Data(val);
+        }
+        catch (Exception e){
+            return new com.models.Error(e);
+        }
+    }
+
     public Object ajoutProduitPhoto(ProduitPhoto pp){
         try{
             Produit produit=pp.toProduit();
