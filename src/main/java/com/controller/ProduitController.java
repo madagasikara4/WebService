@@ -39,6 +39,11 @@ public class ProduitController {
         return produitPhotoService.getAllProduitPhotoByiduser(iduser);
     }
 
+    @GetMapping("/{idproduit}/photo")
+    private Object getAllVProduitPhotoByProduit(@PathVariable("idproduit") int idproduit) {
+        return produitPhotoService.getAllProduitPhotoByidProduit(idproduit);
+    }
+
     @GetMapping("/photo/statut")
     private Object getAllVProduitPhotoByStatut() {
         return produitPhotoService.getAllProduitPhotoByStatut(0);

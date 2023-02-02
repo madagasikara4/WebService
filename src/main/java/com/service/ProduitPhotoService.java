@@ -42,6 +42,18 @@ public class ProduitPhotoService {
         }
     }
 
+    public Object getAllProduitPhotoByidProduit(int idProduit){
+        try{
+            VProduit pr=(VProduit) vProduitRepository.findById(idProduit).get();
+            Photo ph=photoService.getPhotoByid(idProduit);
+            ProduitPhoto val=new ProduitPhoto(pr,ph);
+            return new Data(val);
+        }
+        catch (Exception e){
+            return new com.models.Error(e);
+        }
+    }
+
     public Object getAllProduitPhotoByiduser(int iduser){
         try{
             List<VProduit> produit = new ArrayList<VProduit>();
