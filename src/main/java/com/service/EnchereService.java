@@ -27,6 +27,9 @@ public class EnchereService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    VMesEncheresRepository mesEncheresRepository;
+
     public Object encherir(Enchere enchere){
         try{
             if(enchere.getDatemise()==null){
@@ -103,6 +106,22 @@ public class EnchereService {
     public Object findById(int idenchere){
         try{
             return new Data(enchereRepository.findById(idenchere).get());
+        }catch(Exception e){
+            return new Error(e);
+        }
+    }
+
+    public Object findByIdUser(int iduser){
+        try{
+            List<VMesEncheres> list=new ArrayList<VMesEncheres>();
+            mesEncheresRepository.findAll().forEach(vMesEncheres -> list.add(vMesEncheres));
+            List<VMesEncheres> nlist=new ArrayList<VMesEncheres>();
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).getIdutilisateur()==iduser){
+                    nlist.add((VMesEncheres) list.get(i));
+                }
+            }
+            return new Data(nlist);
         }catch(Exception e){
             return new Error(e);
         }

@@ -28,6 +28,11 @@ public class EnchereController {
         return enchereService.findByIdProduit(produitid);
     }
 
+    @GetMapping("/byuser/{userid}")
+    private Object findByIdUser(@PathVariable("userid") int userid){
+        return enchereService.findByIdUser(userid);
+    }
+
 
 
 
