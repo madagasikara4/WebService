@@ -14,8 +14,8 @@ public class EnchereController {
     EnchereService enchereService;
 
     @PostMapping("/encherir")
-    private void encherir(@RequestBody Enchere enchere){
-        enchereService.encherir(enchere);
+    private Object encherir(@RequestBody Enchere enchere){
+        return enchereService.encherir(enchere);
     }
 
     @GetMapping("/{enchereid}")

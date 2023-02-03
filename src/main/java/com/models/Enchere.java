@@ -1,14 +1,13 @@
 package com.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity(name = "enchere")
 public class Enchere {
     @Id
     @Column(name = "idenchere")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idenchere;
     @Column(name = "idproduit")
     private int idproduit;

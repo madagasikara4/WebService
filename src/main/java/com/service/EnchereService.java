@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -28,6 +29,10 @@ public class EnchereService {
 
     public Object encherir(Enchere enchere){
         try{
+            if(enchere.getDatemise()==null){
+                Calendar cl=Calendar.getInstance();
+                enchere.setDatemise(cl.getTime());
+            }
             VEncherePrixMax prixmax=getPrixMaxProduit(enchere.getIdproduit());
             if(prixmax!=null && enchere.getPrix()<=prixmax.getPrix()){
                 throw new Exception("Prix inférieure à l'enchère précédente");
@@ -44,8 +49,7 @@ public class EnchereService {
                 throw new Exception("Solde insuffisant");
             }
 
-            Object pdt=produitRepository.findById(enchere.getIdproduit());
-            Produit produit=(Produit) pdt;
+            Produit produit=produitRepository.findById(enchere.getIdproduit()).get();
 
             //Verifier si enchere.prix>Produit.prixMin
             if(enchere.getPrix()<produit.getPrixmin()){
@@ -72,15 +76,18 @@ public class EnchereService {
     }
 
     public int getMontantUser(int idUser){
-        Object object=userRepository.findById(idUser);
-        Utilisateur user=(Utilisateur) object;
+        Utilisateur user=userRepository.findById(idUser).get();
         return user.getMontant();
     }
 
     private VEncherePrixMax getPrixMaxProduit(int produitid){
-        Object o=prixMaxRepository.findById(produitid);
-        VEncherePrixMax v=(VEncherePrixMax) o;
-        return v;
+        try {
+            VEncherePrixMax v = prixMaxRepository.findById(produitid).get();
+            return v;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public Object getAllEnchere(){
